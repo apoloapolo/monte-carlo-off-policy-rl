@@ -1,4 +1,5 @@
 # Monte Carlo Off-Policy
+### Aluno: Apolo V. A. A. Albuquerque
 
 Monte_Carlo_Off_Policy.ipynb é o Notebook Python com o código que foi produzido até agora.
 
