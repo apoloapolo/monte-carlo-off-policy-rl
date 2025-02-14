@@ -1,6 +1,6 @@
 # Monte Carlo Off-Policy
 
-Monte_Carlo_Off_Policy.ipynb é o Notebook Python com o código já produzido.
+Monte_Carlo_Off_Policy.ipynb é o Notebook Python com o código que foi produzido até agora.
 
 ## Esqueleto do Artigo
 - o que é off-policy
