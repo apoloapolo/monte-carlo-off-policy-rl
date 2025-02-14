@@ -1,2 +1,3 @@
-# monte-carlo-off-policy-rl
-Repositório para o projeto da disciplina de Aprendizagem por Reforço.
+# Monte Carlo Off-Policy
+
+Monte_Carlo_Off_Policy.ipynb é o notebook com o código já produzido.
