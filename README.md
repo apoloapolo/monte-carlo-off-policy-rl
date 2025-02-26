@@ -61,15 +61,30 @@ Conforme explicado no livro *Reinforcement Learning: An Introduction*, de Richar
 ## Pseudo-Código do Algoritmo
 
 ```plaintext
-Iniciar V(s) e contadores
+Iniciar returns_history, errors e contadores
 Para cada episódio:
-    Gerar uma trajetória sob b
-    Inicializar G e W = 1
+    Reiniciar o ambiente e obter o estado inicial
+    Inicializar lista episode_data
+    Enquanto o episódio não terminar:
+        Escolher ação a a partir da behavior_policy
+        Obter probabilidades da target_policy
+        Executar ação e registrar estado, ação, recompensa e probabilidades
+    Inicializar G = 0 e ρ = 1
+    Criar conjunto updated_states
     Para cada passo t da trajetória, de s_T a s_0:
-        Atualizar G com a recompensa
-        Atualizar V(s) usando importance sampling
-        Se stop_buildup e ação de b for diferente de π, parar
-        Atualizar W com a probabilidade de importação
+        Atualizar G com a recompensa e fator de desconto
+        Atualizar ρ multiplicando pela razão π(a|s) / b(a|s)
+        Armazenar (ρ, G) em returns_history[s]
+        Adicionar s ao conjunto updated_states
+        Se stop_buildup e ação de b for diferente da melhor ação de π, parar
+    Para cada estado s em updated_states:
+        Se weighted:
+            Calcular V(s) como soma(ρG) / soma(ρ)
+        Caso contrário:
+            Calcular V(s) como média dos retornos ponderados por ρ
+    Calcular erro quadrático médio (MSE) e armazenar em errors
+Consolidar V(s) final baseado nos retornos acumulados
+Retornar V_final e errors
 ```
 
 O parâmetro `stop_buildup` impede que o acúmulo de $\(G\)$ e $\(\rho\)$ continue caso a política de comportamento tenha escolhido uma ação diferente da target.
