@@ -183,3 +183,9 @@ Neste experimento foi tirada a média de erros entre os 1000 episódios das 10 e
 ![Experimento 6](Gráficos/6.png)
 
 Neste experimento foi tirada a média de erros entre os 10000 episódios das 10 execuções.
+
+## Referências
+
+- *Reinforcement Learning: An Introduction, Richard S. Sutton e Andrew G. Barto.*
+- Material Didático do professor Pablo Sampaio.
+- [Documentação da Biblioteca Gymnasium](https://gymnasium.farama.org/api)
