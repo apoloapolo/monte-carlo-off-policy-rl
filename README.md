@@ -113,7 +113,7 @@ Os experimentos comparam os valores reais de $\(V(s)\)$ da política target com 
 | -4.21 | -3.58 | -4.98 | -2.63 | -2.48 | -1.89 | -8.14 | -2.49 | -4.03 | -3.00 | -2.00  | -1.00  |
 | -2.96 |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V   |  N/V   |
 
-> O objetivo de mostrar as tabelas acima é comparar os valores reais da $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que durante a execução dos episódios, o determinado estado nunca foi visitado.
+> O objetivo de mostrar as tabelas acima é comparar os valores reais da $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que, durante a execução dos episódios, o determinado estado nunca foi visitado.
 
 ### Experimento 2: 1000 episódios com `stop_buildup=False`
 
@@ -150,7 +150,7 @@ Os experimentos comparam os valores reais de $\(V(s)\)$ da política target com 
 | -13.85 | -12.68 | -5.44 | -5.57 | -2.78 | -56.74 | -19.14 | -99.31 | -96.28 | -4.58 | -8.00  | -3.04  |
 | -12.55 |  N/V   |  N/V  |  N/V  |  N/V  |  N/V   |  N/V   |  N/V   |  N/V   |  N/V  |  N/V   |  N/V   |
 
-> O objetivo de mostrar as tabelas acima é comparar os valores reais da $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que durante a execução dos episódios, o determinado estado nunca foi visitado.
+> O objetivo de mostrar as tabelas acima é comparar os valores reais da $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que, durante a execução dos episódios, o determinado estado nunca foi visitado.
 
 ### Experimento 3: 10 Execuções de 1000 episódios com `stop_buildup=False`
 
