@@ -5,7 +5,7 @@
 
 ## O que é Off-Policy?
 
-Off-policy é um paradigma de aprendizado por reforço onde a função de valor de uma política alvo \(\pi\) é aprendida utilizando trajetórias geradas por uma política diferente, chamada de política de comportamento \(b\). Isso contrasta com o aprendizado on-policy, onde a mesma política é utilizada tanto para gerar experiências quanto para o aprendizado. Esse método é particularmente útil para aproveitar experiências passadas ou coletadas por agentes diferentes.
+Off-policy é um paradigma de aprendizado por reforço onde a função de valor de uma política alvo $\(\pi\)$ é aprendida utilizando trajetórias geradas por uma política diferente, chamada de política de comportamento $\(b\)$. Isso contrasta com o aprendizado on-policy, onde a mesma política é utilizada tanto para gerar experiências quanto para o aprendizado. Esse método é particularmente útil para aproveitar experiências passadas ou coletadas por agentes diferentes.
 
 ## Ambiente e Políticas
 
@@ -18,7 +18,7 @@ O ambiente utilizado é o *Cliff Walking* da biblioteca Gymnasium, modificado co
 
 ## Problema de Predição da RL
 
-O problema de predição envolve estimar a função de valor \(V(s)\) de uma política \(\pi\), sem necessariamente aprender a própria política. Em um contexto on-policy, isso ocorre executando a própria \(\pi\) para coletar experiências. No contexto off-policy, aprendemos \(V(s)\) de \(\pi\) usando amostras geradas por \(b\), que pode ser muito diferente de \(\pi\).
+O problema de predição envolve estimar a função de valor $\(V(s)\)$ de uma política $\(\pi\)$, sem necessariamente aprender a própria política. Em um contexto on-policy, isso ocorre executando a própria $\(\pi\)$ para coletar experiências. No contexto off-policy, aprendemos $\(V(s)\)$ de \(\pi\) usando amostras geradas por \(b\), que pode ser muito diferente de \(\pi\).
 
 A função \(V(s)\) é definida como o retorno esperado a partir de um estado \(s\), seguindo a política \(\pi\):
 
