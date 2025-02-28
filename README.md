@@ -5,7 +5,7 @@
 
 ## O que é Off-Policy?
 
-Off-policy é um paradigma de aprendizado por reforço onde a função de valor de uma política alvo $\(\pi\)$ é aprendida utilizando trajetórias geradas por uma política diferente, chamada de política de comportamento $\(b\)$. Isso contrasta com o aprendizado on-policy, onde a mesma política é utilizada tanto para gerar experiências quanto para o aprendizado. Esse método é particularmente útil para aproveitar experiências passadas ou coletadas por agentes diferentes.
+Off-policy é um paradigma de aprendizado por reforço onde a função de valor de uma política alvo $\pi$ é aprendida utilizando trajetórias geradas por uma política diferente, chamada de política de comportamento $b$. Isso contrasta com o aprendizado on-policy, onde a mesma política é utilizada tanto para gerar experiências quanto para o aprendizado. Esse método é particularmente útil para aproveitar experiências passadas ou coletadas por agentes diferentes.
 
 ## Ambiente e Políticas
 
@@ -13,20 +13,20 @@ O ambiente utilizado é o *Cliff Walking* da biblioteca Gymnasium, modificado co
 
 ### Exemplo de Políticas
 
-- **Política $\pi$ épsilon-greedy derivada da política ótima:** Escolhe a melhor ação na maioria das vezes, mas com uma pequena probabilidade $\(\varepsilon\)$ escolhe uma ação aleatória.
+- **Política $\pi$ épsilon-greedy derivada da política ótima:** Escolhe a melhor ação na maioria das vezes, mas com uma pequena probabilidade $\varepsilon$ escolhe uma ação aleatória.
 - **Política completamente aleatória:** Escolhe qualquer ação com probabilidade uniforme.
 
 ## Problema de Predição da RL
 
-O problema de predição envolve estimar a função de valor $\(V(s)\)$ de uma política $\(\pi\)$, sem necessariamente aprender a própria política. Em um contexto on-policy, isso ocorre executando a própria $\(\pi\)$ para coletar experiências. No contexto off-policy, aprendemos $\(V(s)\)$ de $\(\pi\)$ usando amostras geradas por $\(b\)$, que pode ser muito diferente de $\(\pi\)$.
+O problema de predição envolve estimar a função de valor $V(s)$ de uma política $\pi$, sem necessariamente aprender a própria política. Em um contexto on-policy, isso ocorre executando a própria $\pi$ para coletar experiências. No contexto off-policy, aprendemos $V(s)$ de $\pi$ usando amostras geradas por $b$, que pode ser muito diferente de $\pi$.
 
-A função $\(V(s)\)$ é definida como o retorno esperado a partir de um estado $\(s\)$, seguindo a política $\(\pi\)$:
+A função $V(s)$ é definida como o retorno esperado a partir de um estado $s$, seguindo a política $\pi$:
 
-$\(V(s) = E[G_t | S_t = s]\)$
+$V(s) = E[G_t | S_t = s]$
 
-Ela é usada para avaliar quão "bom" é cada estado sob a política $\(\pi\)$.
+Ela é usada para avaliar quão "bom" é cada estado sob a política $\pi$.
 
-A tabela abaixo apresenta os valores reais da função de valor $\(V(s)\)$ para a política target:
+A tabela abaixo apresenta os valores reais da função de valor $V(s)$ para a política target:
 
 ![Cliff Walking](https://gymnasium.farama.org/_images/cliff_walking.gif)
 
@@ -45,17 +45,17 @@ O *importance sampling* é usado para ajustar as estimativas de retorno quando a
 
 #### *Ordinary Importance Sampling*
 
-$\(V(s) = \frac{\sum_{t \in T(s)} \rho_{t:T(t)-1} G_t}{|T(s)|}\)$
+$V(s) = \frac{\sum_{t \in T(s)} \rho_{t:T(t)-1} G_t}{|T(s)|}$
 
 #### *Weighted Importance Sampling*
 
-$\(V(s) = \frac{\sum_{t \in T(s)} \rho_{t:T(t)-1} G_t}{\sum_{t \in T(s)} \rho_{t:T(t)-1}}\)$
+$V(s) = \frac{\sum_{t \in T(s)} \rho_{t:T(t)-1} G_t}{\sum_{t \in T(s)} \rho_{t:T(t)-1}}$
 
 ### Explicação das Fórmulas
 
 Conforme explicado no livro *Reinforcement Learning: An Introduction*, de Richard S. Sutton e Andrew G. Barto:
 
-- No *Ordinary Importance Sampling*, cada retorno $\(G_t\)$ é ponderado pelo produto dos fatores de importância $\(\rho_{t:T(t)-1}\)$, e a média é feita dividindo-se pelo número de trajetórias $\(|T(s)|\)$ que iniciam no estado $\(s\)$. Essa abordagem pode apresentar alta variância.
+- No *Ordinary Importance Sampling*, cada retorno $G_t$ é ponderado pelo produto dos fatores de importância $\rho_{t:T(t)-1}$, e a média é feita dividindo-se pelo número de trajetórias $|T(s)|$ que iniciam no estado $s$. Essa abordagem pode apresentar alta variância.
 - No *Weighted Importance Sampling*, a normalização é feita dividindo pelo somatório dos próprios fatores de importância. Isso reduz a variância das estimativas, proporcionando convergência mais estável, embora possa introduzir certo viés.
 
 ## Pseudo-Código do Algoritmo
@@ -87,11 +87,11 @@ Consolidar V(s) final baseado nos retornos acumulados
 Retornar V_final e errors
 ```
 
-O parâmetro `stop_buildup` impede que o acúmulo de $\(G\)$ e $\(\rho\)$ continue caso a política de comportamento tenha escolhido uma ação diferente da target.
+O parâmetro `stop_buildup` impede que o acúmulo de $G$ e $\rho$ continue caso a política de comportamento tenha escolhido uma ação diferente da target.
 
 ## Resultados dos Experimentos
 
-Os experimentos comparam os valores reais de $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos *ordinary* e *weighted importance sampling*. Os experimentos rodados com o `stop_buildup=False` demoraram mais para serem rodados e geram um gráfico parecido a partir de uma quantidade grande de episódios indicando uma certa estabilidade/resposta final. Nos casos com `stop_buildup=True`, o código roda mais rápido pois sempre haverá cálculos que não serão feitos caso a política behaviour não escolha o mesma ação da target, e tendo em vista que estamos rodando uma política behaviour 100% aleatória, os gráficos gerados são sempre diferentes a cada execução do código. Apesar disso, todos os gráficos tendem os valores dos erros para 0 atráves dos episódios, o que indica que o algoritmo, ao longo do tempo, está estimando $\(V(s)\)$ corretamente.
+Os experimentos comparam os valores reais de $V(s)$ da política target com as estimativas obtidas pelos métodos *ordinary* e *weighted importance sampling*. Os experimentos rodados com o `stop_buildup=False` demoraram mais para serem rodados e geram um gráfico parecido a partir de uma quantidade grande de episódios indicando uma certa estabilidade/resposta final. Nos casos com `stop_buildup=True`, o código roda mais rápido pois sempre haverá cálculos que não serão feitos caso a política behaviour não escolha o mesma ação da target, e tendo em vista que estamos rodando uma política behaviour 100% aleatória, os gráficos gerados são sempre diferentes a cada execução do código. Apesar disso, todos os gráficos tendem os valores dos erros para 0 atráves dos episódios, o que indica que o algoritmo, ao longo do tempo, está estimando $V(s)$ corretamente.
 
 ### Experimento 1: 1000 episódios com `stop_buildup=True`
 
@@ -128,7 +128,7 @@ Os experimentos comparam os valores reais de $\(V(s)\)$ da política target com 
 | -4.21 | -3.58 | -4.98 | -2.63 | -2.48 | -1.89 | -8.14 | -2.49 | -4.03 | -3.00 | -2.00  | -1.00  |
 | -2.96 |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V  |  N/V   |  N/V   |
 
-> O objetivo de mostrar as tabelas acima é comparar os valores reais da $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que, durante a execução dos episódios, o determinado estado nunca foi visitado.
+> O objetivo de mostrar as tabelas acima é comparar os valores reais da $V(s)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que, durante a execução dos episódios, o determinado estado nunca foi visitado.
 
 ### Experimento 2: 1000 episódios com `stop_buildup=False`
 
@@ -165,7 +165,7 @@ Os experimentos comparam os valores reais de $\(V(s)\)$ da política target com 
 | -13.85 | -12.68 | -5.44 | -5.57 | -2.78 | -56.74 | -19.14 | -99.31 | -96.28 | -4.58 | -8.00  | -3.04  |
 | -12.55 |  N/V   |  N/V  |  N/V  |  N/V  |  N/V   |  N/V   |  N/V   |  N/V   |  N/V  |  N/V   |  N/V   |
 
-> O objetivo de mostrar as tabelas acima é comparar os valores reais da $\(V(s)\)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que, durante a execução dos episódios, o determinado estado nunca foi visitado.
+> O objetivo de mostrar as tabelas acima é comparar os valores reais da $V(s)$ da política target com as estimativas obtidas pelos métodos ordinary e weighted. **N/V** é "não visitado", o que indica que, durante a execução dos episódios, o determinado estado nunca foi visitado.
 
 ### Experimento 3: 10 Execuções de 1000 episódios com `stop_buildup=False`
 
