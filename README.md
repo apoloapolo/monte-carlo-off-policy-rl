@@ -1,7 +1,8 @@
 # Monte Carlo Off-Policy
 
-**Aluno:** Apolo V. A. A. Albuquerque\
+**Aluno:** Apolo V. A. A. Albuquerque
 **Arquivo:** `Monte_Carlo_Off_Policy.ipynb` é o Notebook Python com código e resultados que foram produzidos.
+**Vídeo:** [https://youtu.be/UI-DILkH5hQ](https://youtu.be/UI-DILkH5hQ).
 
 ## O que é Off-Policy?
 
