@@ -13,7 +13,7 @@ O ambiente utilizado é o *Cliff Walking* da biblioteca Gymnasium, modificado co
 
 ### Exemplo de Políticas
 
-- **Política $\(\pi\)$ épsilon-greedy derivada da política ótima:** Escolhe a melhor ação na maioria das vezes, mas com uma pequena probabilidade $\(\varepsilon\)$ escolhe uma ação aleatória.
+- **Política $\pi$ épsilon-greedy derivada da política ótima:** Escolhe a melhor ação na maioria das vezes, mas com uma pequena probabilidade $\(\varepsilon\)$ escolhe uma ação aleatória.
 - **Política completamente aleatória:** Escolhe qualquer ação com probabilidade uniforme.
 
 ## Problema de Predição da RL
